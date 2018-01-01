@@ -8,12 +8,11 @@ import 'package:source_gen/source_gen.dart';
 ///
 /// Example: {@example /tool/build.dart}
 /// Example: {@example /tool/watch.dart}
-BuildAction dsonAction([Iterable<String> globs = const ['bin/**.dart', 'web/**.dart', 'lib/**.dart']]) =>
+BuildAction dsonAction(
+        [Iterable<String> globs = const ['bin/**.dart', 'web/**.dart', 'lib/**.dart'],
+        String header = "// GENERATED CODE - DO NOT MODIFY BY HAND"]) =>
     new BuildAction(
-        new PartBuilder(const [
-          const DsonGenerator(),
-          const MirrorsGenerator(),
-          const InitMirrorsGenerator()
-        ]),
+        new PartBuilder(const [const DsonGenerator(), const MirrorsGenerator(), const InitMirrorsGenerator()],
+            header: header),
         new PackageGraph.forThisPackage().root.name,
         inputs: globs);
